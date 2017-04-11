@@ -5,7 +5,6 @@
 package assignment.pkg5;
 
 import java.util.Scanner;
-import java.util.Arrays;
 
 /**
  *
@@ -19,54 +18,53 @@ public class Hangman {
     public static void main(String[] args) {
         // scanner input to get user input
         Scanner input = new Scanner(System.in);
+        // insert counter
+        int counter = 1;
+        //number of lives
+        int lives = 6;
+        // tell player 1 to insert word
         System.out.println("Player 1: Enter a word for Player 2 to guess: ");
         String word = input.nextLine();
+        String word2 = word;
         //insert blank lines
         System.out.println("");
         System.out.println("");
         System.out.println("");
         System.out.println("");
         //insert dashes for word length
-        String display = "";
         for (int i = 0; i < word.length(); i++) {
-            display = display + "- ";
+            String temp = word2.substring(i, i + 1);
+            char temp1 = temp.charAt(0);
+
+            word2 = word2.replace(temp1, '-');
+
         }
-        System.out.println(display);
-        
-        //player 2 guess a number
-        System.out.println("Player 2: You have 6 lives left. Guess a letter: ");
-        String letter = input.nextLine();
-        //if letter right replace a dash, if wrong change number of lives
-        if(word.contains(letter)){
-                //print the character
-                int spot = word.indexOf(letter);
-        //get character at position spot
-                char character = display.charAt(spot);
-                //print out each letter in the word
-            //start at position 0 go up to length - 1
-                
-                //print the character
-                    //breaking up the string where the vowel was found
-                for (int i = 0; i > spot; i++){
-                    String firstHalf = display.substring(0, i);
-                    String lastHalf = display.substring(i);
+        //create a stringBuilder to manipulate easier
+        StringBuilder nameOfBuilder = new StringBuilder(word2);
+        //create a while statement 
+        while (lives > 0) {
+            //ask the player to guess a letter and output the number of lives left
+            System.out.println("Player 2: You have " + lives + " lives left. Guess a letter: ");
+            String letter = input.nextLine();
+            //store the letter as a character
+            char letterGuessed = letter.charAt(0);
+            // create a for loop
+            for (int i = 0; i < word.length(); i++) {
+                //if statement if the letter guessed is right
+                if (letterGuessed == word.charAt(i)) {
+                    nameOfBuilder.setCharAt(i, letterGuessed);
+                    //decrease counter
+                    counter--;
+                }
+//                //if statement if the letter guessed is wrong
+//                else if (letterGuessed != word.charAt(i)) {
+//                   //decrease counter
+//                   counter--;
+//                   lives--;
 
-                    //create the translated word
-                    String output = firstHalf + character + lastHalf;
-
-                    //show the user how many lives they have left
-                    System.out.println("You have 6 lives left. Guess a letter: " + output);
-
-                    //stop looking for more vowels
-        }
             }
-        //if (!word.contains(letter)) {
-            //System.out.println("Player 2: You have 5 lives left. Guess a letter: ");
-            //insert blank lines for word length
-            //for (int i = 0; i < word.length(); i++) {
-             //   System.out.print("- ");
-           // }
-           // System.out.println("");
-     //   }
+            System.out.println(nameOfBuilder);
+
+        }
     }
 }
