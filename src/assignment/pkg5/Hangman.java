@@ -22,6 +22,8 @@ public class Hangman {
         int counter = 1;
         //number of lives
         int lives = 6;
+        
+        boolean check = false;
         // tell player 1 to insert word
         System.out.println("Player 1: Enter a word for Player 2 to guess: ");
         String word = input.nextLine();
@@ -43,6 +45,7 @@ public class Hangman {
         StringBuilder nameOfBuilder = new StringBuilder(word2);
         //create a while statement 
         while (lives > 0) {
+            check = false;
             //ask the player to guess a letter and output the number of lives left
             System.out.println("Player 2: You have " + lives + " lives left. Guess a letter: ");
             String letter = input.nextLine();
@@ -53,18 +56,16 @@ public class Hangman {
                 //if statement if the letter guessed is right
                 if (letterGuessed == word.charAt(i)) {
                     nameOfBuilder.setCharAt(i, letterGuessed);
-                    //decrease counter
-                    counter--;
+                    check  = true;
                 }
-//                //if statement if the letter guessed is wrong
-//                else if (letterGuessed != word.charAt(i)) {
-//                   //decrease counter
-//                   counter--;
-//                   lives--;
-
+            }
+                //if statement if the letter guessed is wrong
+                if (check == false) {
+                   //decrease number of lives
+                   lives = lives - 1;
+                   
             }
             System.out.println(nameOfBuilder);
-
-        }
     }
+}
 }
